@@ -1,0 +1,47 @@
+# AGI Framework Dependencies
+# Core ML/DL Libraries
+torch>=2.0.0
+transformers>=4.35.0
+peft>=0.6.0  # LoRA adapters
+accelerate>=0.24.0
+
+# Graph Neural Networks
+torch-geometric>=2.4.0
+networkx>=3.2.0
+
+# Vector Store & Embeddings
+faiss-cpu>=1.7.4
+sentence-transformers>=2.2.0
+
+# Reinforcement Learning
+gymnasium>=0.29.0
+stable-baselines3>=2.2.0
+
+# API & Server
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pydantic>=2.5.0
+
+# Utilities
+numpy>=1.24.0
+pandas>=2.1.0
+scipy>=1.11.0
+scikit-learn>=1.3.0
+
+# Logging & Monitoring
+loguru>=0.7.0
+tqdm>=4.66.0
+wandb>=0.16.0
+
+# Configuration
+pyyaml>=6.0.0
+python-dotenv>=1.0.0
+
+# Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+
+# Type Checking
+mypy>=1.7.0
+types-PyYAML>=6.0.0
+

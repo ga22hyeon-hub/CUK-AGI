@@ -1,0 +1,108 @@
+# AGI Framework Configuration
+# Multi-LLM Agent 기반 AGI 프레임워크 설정
+
+framework:
+  name: "AGI Framework"
+  version: "0.1.0"
+  debug: true
+  log_level: "INFO"
+
+# 모더레이터 에이전트 설정
+moderator:
+  model_name: "gpt-4"  # 또는 로컬 모델
+  max_planning_steps: 10
+  intent_classification:
+    categories:
+      - "knowledge_query"
+      - "task_execution"
+      - "learning_request"
+      - "context_retrieval"
+  task_decomposition:
+    max_subtasks: 5
+    parallel_execution: true
+
+# 지식 큐레이션 에이전트 설정
+knowledge_curation:
+  embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+  graph_model: "GCN"  # GCN, GAT, GraphSAGE
+  vector_store:
+    type: "faiss"
+    dimension: 384
+    index_type: "IVF"
+  gnn:
+    hidden_dim: 256
+    num_layers: 3
+    dropout: 0.1
+    aggregation: "mean"
+
+# 컨텍스트 에이전트 설정
+context:
+  history_db:
+    type: "sqlite"  # sqlite, postgresql
+    max_history_length: 1000
+  situation_graph:
+    max_nodes: 500
+    temporal_decay: 0.95
+  long_term_memory:
+    enabled: true
+    retrieval_top_k: 10
+
+# 추론 에이전트 설정
+reasoning:
+  base_model: "meta-llama/Llama-2-7b-hf"
+  lora_adapters:
+    enabled: true
+    rank: 16
+    alpha: 32
+    dropout: 0.05
+    target_modules:
+      - "q_proj"
+      - "v_proj"
+      - "k_proj"
+      - "o_proj"
+  task_modules:
+    - name: "education_material_generator"
+      adapter_path: "adapters/edu_gen"
+    - name: "opinion_generator"
+      adapter_path: "adapters/opinion_gen"
+  generation:
+    max_length: 2048
+    temperature: 0.7
+    top_p: 0.9
+
+# 학습 에이전트 설정
+learning:
+  task_llm:
+    model_name: "meta-llama/Llama-2-7b-hf"
+  evaluation_llm:
+    model_name: "gpt-4"  # 평가용 모델
+  reward_model:
+    type: "preference_based"
+    learning_rate: 1e-5
+    batch_size: 32
+  reinforcement_learning:
+    algorithm: "PPO"
+    gamma: 0.99
+    clip_range: 0.2
+    n_epochs: 4
+    learning_rate: 3e-4
+  self_evaluation:
+    enabled: true
+    evaluation_frequency: 100  # steps
+
+# 오케스트레이터 설정
+orchestrator:
+  message_queue:
+    type: "memory"  # memory, redis, rabbitmq
+    max_queue_size: 1000
+  agent_timeout: 60  # seconds
+  retry_attempts: 3
+  parallel_agents: true
+
+# 로깅 설정
+logging:
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/agi_framework.log"
+  max_size: "100MB"
+  backup_count: 5
+
