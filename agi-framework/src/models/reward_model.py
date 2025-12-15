@@ -422,7 +422,7 @@ class PPOTrainer:
         })
     
     def compute_advantages(self) -> List[float]:
-        """어드밴티지 계산 (간단한 버전)"""
+        """어드밴티지 계산"""
         rewards = [exp["reward"] for exp in self.experience_buffer]
         
         # 기준선 (평균 보상)
