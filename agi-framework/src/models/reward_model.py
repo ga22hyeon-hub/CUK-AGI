@@ -271,7 +271,6 @@ class RewardModel:
     
     def train_step(self, batch: List[PreferenceData]) -> Dict[str, float]:
         """
-        학습 스텝
         
         Args:
             batch: 선호도 데이터 배치
